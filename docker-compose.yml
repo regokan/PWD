@@ -3,6 +3,7 @@ services:
   cache:
     image: "redis"
   web:
+    restart: always
     build: .
     ports:
       - "3000:3000"
