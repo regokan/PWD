@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const redis = redis();
+const redis = require("redis");
 const port = 3000;
 
 const client = redis.createClient({
