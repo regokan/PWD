@@ -1,7 +1,19 @@
 const express = require("express");
 const app = express();
+const redis = redis();
 const port = 3000;
 
-app.get("/", (req, res) => res.send("Hello World!"));
+const client = redis.createClient({
+  host: "redis",
+  port: 6379,
+});
+
+client.set("visits", 0);
+
+app.get("/", (req, res) => {
+  const visits = parseInt(client.get("visits"));
+  client.set("visits", visits + 1);
+  res.send(`Number of visits ${visits + 1}`);
+});
 
 app.listen(port, () => console.log(`Listening at http://localhost:${port}`));
